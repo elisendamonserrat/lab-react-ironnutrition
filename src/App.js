@@ -41,7 +41,6 @@ class App extends Component {
     })
   }
   
-
   render() {
     return (
       <div className="App text-center">
@@ -50,6 +49,8 @@ class App extends Component {
         <button className="button is-info margin-bottom" onClick={this.showAddFoodForm}>Add a new food item to the list</button>
         {this.state.addFoodForm && < AddFoodInput onAddFood={this.addFood} />}
         {this.state.addFoodForm && ''}
+
+        
 
         {this.state.foodList.map((food, index) => {
           return(
