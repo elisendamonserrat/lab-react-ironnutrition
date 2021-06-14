@@ -12,8 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       foodList: foods,
-
-
+      addFoodForm: false,
     };
   }
 
@@ -35,11 +34,23 @@ class App extends Component {
     console.log(this.state)
   }
 
+  showAddFoodForm = () => {
+    console.log('show form')
+    this.setState({
+      addFoodForm: !this.state.addFoodForm,
+    })
+  }
+  
+
   render() {
     return (
       <div className="App text-center">
         <h1 className="title is-1">IronNutrition</h1>
-        < AddFoodInput onAddFood={this.addFood} />
+
+        <button className="button is-info margin-bottom" onClick={this.showAddFoodForm}>Add a new food item to the list</button>
+        {this.state.addFoodForm && < AddFoodInput onAddFood={this.addFood} />}
+        {this.state.addFoodForm && ''}
+
         {this.state.foodList.map((food, index) => {
           return(
             < FoodBox 

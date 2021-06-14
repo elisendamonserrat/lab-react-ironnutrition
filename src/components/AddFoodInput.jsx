@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import 'bulma/css/bulma.css';
+
 
 export class AddFoodInput extends Component {
     constructor(props) {
@@ -24,9 +26,9 @@ export class AddFoodInput extends Component {
         const { name, calories, image } = this.state;
 
         return (
-            <div className="container ">
+        <div className="modal modal-card ">
                 <input
-                   className="input column is-4 is-offset-4"
+                   className="input margin-bottom-small"
                    type="text"
                    name="name"
                    value={name}
@@ -34,7 +36,7 @@ export class AddFoodInput extends Component {
                    onChange={this.handleInput}
                 />
                 <input
-                   className="input column is-4 is-offset-4"
+                   className="input margin-bottom-small"
                    type="text"
                    name="calories"
                    value={calories}
@@ -42,16 +44,15 @@ export class AddFoodInput extends Component {
                    onChange={this.handleInput}
                 />
                 <input
-                   className="input column is-4 is-offset-4"
+                   className="input margin-bottom-small"
                    type="text"
                    name="image"
                    value={image}
                    placeholder="Image of the food"
                    onChange={this.handleInput}
                 />
-
-            <button className="button" onClick={this.handleClick}> Add food </button>
-            </div>
+            <button className="button is-success margin-bottom" onClick={this.handleClick}> Add food </button>
+        </div>
         )
     }
 }
