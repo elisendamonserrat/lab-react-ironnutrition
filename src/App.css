@@ -1,6 +1,8 @@
 .App {
   padding: 2em;
   margin: 0 auto;
+  width: 90%;
+  max-width: 900px;
 }
 
 .text-center {

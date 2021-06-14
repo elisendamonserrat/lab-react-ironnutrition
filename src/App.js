@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       foodList: foods,
       addFoodForm: false,
+      query: '',
     };
   }
 
@@ -40,8 +41,28 @@ class App extends Component {
       addFoodForm: !this.state.addFoodForm,
     })
   }
+
+  filterFood = (foodsArray, query) => {
+    if(!query) {
+      return foodsArray
+    }
+
+    return foodsArray.filter((food) => {
+      const foodName = food.name.toLowerCase();
+      return foodName.includes(query)
+    })
+  }
+
+  handleSearchBarInput = (event) => {
+    this.setState({
+      query: event.target.value,
+    })
+  }
   
   render() {
+    const filteredFoodArray = this.filterFood(this.state.foodList, this.state.query);
+
+
     return (
       <div className="App text-center">
         <h1 className="title is-1">IronNutrition</h1>
@@ -50,9 +71,16 @@ class App extends Component {
         {this.state.addFoodForm && < AddFoodInput onAddFood={this.addFood} />}
         {this.state.addFoodForm && ''}
 
+        <input 
+          className="input margin-bottom"
+          type="text"
+          value={this.state.query}
+          placeholder="Type in the food you're searching for..."
+          onChange={this.handleSearchBarInput}
         
+        />
 
-        {this.state.foodList.map((food, index) => {
+        {filteredFoodArray.map((food, index) => {
           return(
             < FoodBox 
                 key={index}

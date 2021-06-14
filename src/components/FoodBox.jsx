@@ -10,7 +10,7 @@ export class FoodBox extends Component {
         const { name, calories, image, quantity} = this.props.food;
 
         return (
-            <div className="column is-4 is-offset-4 box text-left">
+            <div className="box text-left">
                 <article className="media">
                     <div className="media-left">
                     <figure className="image is-64x64">
