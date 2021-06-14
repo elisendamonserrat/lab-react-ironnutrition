@@ -11,12 +11,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      foodList: foods,
+
 
     };
   }
 
-  addFood = () => {
-    console.log('update state and add new food to the array')
+  addFood = (newFood) => {
+    const initialFoodList = [...this.state.foodList];
+    const { name, calories, image } = newFood;
+    console.log(newFood)
+
+    initialFoodList.push({
+      "name": name ,
+      "calories": calories,
+      "image": "https://i.imgur.com/eTmWoAN.png",
+      "quantity": 0
+    })
+
+    this.setState({
+      foodList: initialFoodList,
+    })
+    console.log(this.state)
   }
 
   render() {
@@ -24,7 +40,7 @@ class App extends Component {
       <div className="App text-center">
         <h1 className="title is-1">IronNutrition</h1>
         < AddFoodInput onAddFood={this.addFood} />
-        {foods.map((food, index) => {
+        {this.state.foodList.map((food, index) => {
           return(
             < FoodBox 
                 key={index}
