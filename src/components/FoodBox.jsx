@@ -16,13 +16,12 @@ export class FoodBox extends Component {
     }
 
     handleClick = () => {
-        this.props.addTodaysFood(this.props);
+        this.props.addTodaysFood(this.props, this.state.quantity);
     }
 
     render() {
         const { name, calories, image } = this.props.food;
-        console.log('render foodBox')
-
+        
         return (
             <div className="box text-left margin-bottom">
             <article className="media">

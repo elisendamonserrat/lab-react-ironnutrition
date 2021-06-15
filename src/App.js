@@ -14,7 +14,6 @@ class App extends Component {
       foodList: foods,
       addFoodForm: false,
       query: '',
-      totalCalories: 0,
       todaysFood: [],
     };
   }
@@ -22,7 +21,6 @@ class App extends Component {
   addFood = (newFood) => {
     const initialFoodList = [...this.state.foodList];
     const { name, calories, image } = newFood;
-    console.log(newFood)
 
     initialFoodList.push({
       "name": name ,
@@ -60,21 +58,24 @@ class App extends Component {
     })
   }
 
-  onAddTodaysFood = ( { food }) => {
-    console.log('render todays Food', food.name)
-   
+  onAddTodaysFood = ( { food }, quantity) => {
     const initialTodaysFoodList = [...this.state.todaysFood];
-    initialTodaysFoodList.push(food);
+    initialTodaysFoodList.push({...food, quantity: quantity});
 
     this.setState({
       todaysFood: initialTodaysFoodList,
     })
 
   }
+
+  sumTotalCalories = (foodList) => {
+    return foodList.reduce((acc, currentValue) => {
+      return acc + currentValue.calories
+    }, 0);
+  }
   
   render() {
     const filteredFoodArray = this.filterFood(this.state.foodList, this.state.query);
-    console.log('app render')
 
     return (
       <div className="App text-center">
@@ -109,13 +110,15 @@ class App extends Component {
           <div className="container__todaysFood text-left">
               <h2 className="title is-4">Today's Food</h2>
                 <ul className="container__todaysFood__ul">
-                  {this.state.todaysFood.map((food) => {
+                  {this.state.todaysFood.map((food, index) => {
                     return(
-                      <li className="">{food.name}</li>
+                      <li key={index}>
+                        {food.quantity} {food.name} - {food.calories} cal
+                      </li>
                     )
                   })}
                 </ul>
-                <p>Total: {this.state.totalCalories} cal</p>
+                <p>Total: {this.sumTotalCalories(this.state.todaysFood)} cal</p>
             </div>
         </div>
       </div>
