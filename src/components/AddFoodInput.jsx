@@ -20,9 +20,9 @@ export class AddFoodInput extends Component {
 
     handleClick = () => {
         if( this.state.name === "" || this.state.calories === "" ) {
-            alert('Please fill all the fields of the form')
+           return alert('Please fill all the fields of the form');
         }
-        this.props.onAddFood(this.state);
+        return this.props.onAddFood(this.state);
     }
 
     render() {

@@ -31,8 +31,8 @@ class App extends Component {
 
     this.setState({
       foodList: initialFoodList,
+      addFoodForm: !this.state.addFoodForm,
     })
-    console.log(this.state)
   }
 
   showAddFoodForm = () => {
@@ -49,7 +49,7 @@ class App extends Component {
 
     return foodsArray.filter((food) => {
       const foodName = food.name.toLowerCase();
-      return foodName.includes(query)
+      return foodName.includes(query.toLowerCase())
     })
   }
 
@@ -61,7 +61,6 @@ class App extends Component {
   
   render() {
     const filteredFoodArray = this.filterFood(this.state.foodList, this.state.query);
-
 
     return (
       <div className="App text-center">
@@ -77,7 +76,6 @@ class App extends Component {
           value={this.state.query}
           placeholder="Type in the food you're searching for..."
           onChange={this.handleSearchBarInput}
-        
         />
 
         {filteredFoodArray.map((food, index) => {
@@ -87,8 +85,8 @@ class App extends Component {
                 food={food}
                 id={index}
             />
-          )
-        })
+           )
+         })
         }
       </div>
     );
