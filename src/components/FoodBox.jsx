@@ -5,13 +5,17 @@ export class FoodBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 0,
+            quantity: 1,
         }
     }
 
-    handleInput = () => {
+    handleInput = (e) => {
+        if(e.target.value == 0) { 
+            return alert('A minimun amount of 1 is required to be added on your list')
+        }
+
         this.setState({
-            quantity: this.state.quantity + 1,
+            quantity: e.target.value,
         })
     }
 

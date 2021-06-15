@@ -16,6 +16,7 @@ class App extends Component {
       addFoodForm: false,
       query: '',
       todaysFood: [],
+      calories: 0.
     };
   }
 
@@ -61,15 +62,16 @@ class App extends Component {
 
   onAddTodaysFood = ( { food }, quantity) => {
     const initialTodaysFoodList = [...this.state.todaysFood];
-    
-    initialTodaysFoodList.push({...food, quantity: quantity});
+
+    initialTodaysFoodList.push({...food, quantity});
 
     const groupedFood = initialTodaysFoodList.reduce((acc, curr) => {
+
       const foodExists = acc.find(item => item.name === curr.name);
 
       if (foodExists) {
-        foodExists.calories += curr.calories ;
-        foodExists.quantity += curr.quantity;
+        foodExists.quantity = parseInt(foodExists.quantity) + parseInt(quantity);
+        foodExists.calories = parseInt(foodExists.quantity) * parseInt(foodExists.calories);
         return acc;
       }
       return [...acc, curr]
@@ -77,8 +79,8 @@ class App extends Component {
 
     this.setState({
       todaysFood: groupedFood,
+      calories: this.sumTotalCalories(groupedFood)
     })
-
   }
 
   sumTotalCalories = (foodList) => {
@@ -143,7 +145,7 @@ class App extends Component {
                     )
                   })}
                 </ul>
-                <p>Total: {this.sumTotalCalories(this.state.todaysFood)} cal</p>
+                <p>Total: {this.state.calories} cal</p>
             </div>
         </div>
       </div>

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export class TodaysFoodList extends Component {
 
     handleOnClick = (e) => {
-        console.log('clicked trash', this.props.food)
-        this.props.onDelete(this.props.food)
+        const foodToDelete = this.props.food;
+        this.props.onDelete(foodToDelete)
     }
 
     render() {

@@ -22,7 +22,14 @@ export class AddFoodInput extends Component {
         if( this.state.name === "" || this.state.calories === "" ) {
            return alert('Please fill all the fields of the form');
         }
-        return this.props.onAddFood(this.state);
+        const newFood = this.state;
+        this.props.onAddFood(newFood);
+
+        this.setState({
+            name: "", 
+            calories: "",
+            image: ""
+          })
     }
 
     render() {
