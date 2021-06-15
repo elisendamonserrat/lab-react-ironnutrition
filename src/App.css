@@ -5,6 +5,19 @@
   max-width: 900px;
 }
 
+.container__food {
+  display:flex;
+  justify-content: space-between;
+}
+
+.container__foodBox {
+  width: 55%;
+}
+
+.container__todaysFood {
+  width: 35%;
+}
+
 .text-center {
   text-align: center;
 }
@@ -19,6 +32,14 @@
 
 .margin-bottom-small {
   margin-bottom: .5em;
+}
+
+.container__todaysFood__ul {
+  margin: 0 0 1em 2.25em;
+}
+
+li {
+  list-style: initial;
 }
 
 

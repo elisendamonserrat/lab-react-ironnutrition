@@ -14,6 +14,8 @@ class App extends Component {
       foodList: foods,
       addFoodForm: false,
       query: '',
+      totalCalories: 0,
+      todaysFood: [],
     };
   }
 
@@ -36,7 +38,6 @@ class App extends Component {
   }
 
   showAddFoodForm = () => {
-    console.log('show form')
     this.setState({
       addFoodForm: !this.state.addFoodForm,
     })
@@ -58,9 +59,22 @@ class App extends Component {
       query: event.target.value,
     })
   }
+
+  onAddTodaysFood = ( { food }) => {
+    console.log('render todays Food', food.name)
+   
+    const initialTodaysFoodList = [...this.state.todaysFood];
+    initialTodaysFoodList.push(food);
+
+    this.setState({
+      todaysFood: initialTodaysFoodList,
+    })
+
+  }
   
   render() {
     const filteredFoodArray = this.filterFood(this.state.foodList, this.state.query);
+    console.log('app render')
 
     return (
       <div className="App text-center">
@@ -78,16 +92,32 @@ class App extends Component {
           onChange={this.handleSearchBarInput}
         />
 
-        {filteredFoodArray.map((food, index) => {
-          return(
-            < FoodBox 
-                key={index}
-                food={food}
-                id={index}
-            />
-           )
-         })
-        }
+        <div className="container__food">
+        <div className="container__foodBox"> 
+            {filteredFoodArray.map((food, index) => {
+              return(
+                < FoodBox 
+                    key={index}
+                    food={food}
+                    id={index}
+                    addTodaysFood={this.onAddTodaysFood}
+                />
+              )
+            })
+            }
+          </div>
+          <div className="container__todaysFood text-left">
+              <h2 className="title is-4">Today's Food</h2>
+                <ul className="container__todaysFood__ul">
+                  {this.state.todaysFood.map((food) => {
+                    return(
+                      <li className="">{food.name}</li>
+                    )
+                  })}
+                </ul>
+                <p>Total: {this.state.totalCalories} cal</p>
+            </div>
+        </div>
       </div>
     );
   }
