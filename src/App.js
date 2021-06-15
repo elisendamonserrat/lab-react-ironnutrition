@@ -5,6 +5,7 @@ import 'bulma/css/bulma.css';
 import FoodBox from './components/FoodBox';
 import foods from './foods.json';
 import AddFoodInput from './components/AddFoodInput';
+import TodaysFoodList from './components/TodaysFoodList';
 
 
 class App extends Component {
@@ -65,8 +66,9 @@ class App extends Component {
 
     const groupedFood = initialTodaysFoodList.reduce((acc, curr) => {
       const foodExists = acc.find(item => item.name === curr.name);
+
       if (foodExists) {
-        foodExists.calories += curr.calories;
+        foodExists.calories += curr.calories ;
         foodExists.quantity += curr.quantity;
         return acc;
       }
@@ -83,6 +85,16 @@ class App extends Component {
     return foodList.reduce((acc, currentValue) => {
       return acc + currentValue.calories
     }, 0);
+  }
+
+  onDeleteItem = (item) => {
+    const initialTodaysFoodList = [...this.state.todaysFood]
+
+    const updatedTodaysFood = initialTodaysFoodList.filter(food => food !== item)
+
+    this.setState({
+      todaysFood: updatedTodaysFood,
+    })
   }
   
   render() {
@@ -123,9 +135,11 @@ class App extends Component {
                 <ul className="container__todaysFood__ul">
                   {this.state.todaysFood.map((food, index) => {
                     return(
-                      <li key={index}>
-                        {food.quantity} {food.name} - {food.calories} cal
-                      </li>
+                      < TodaysFoodList 
+                        key={index}
+                        food={food}
+                        onDelete={this.onDeleteItem}
+                      />
                     )
                   })}
                 </ul>

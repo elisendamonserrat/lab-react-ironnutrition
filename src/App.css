@@ -30,6 +30,10 @@
   margin-bottom: 2em;
 }
 
+.margin-left {
+  margin-left: 1em;
+}
+
 .margin-bottom-small {
   margin-bottom: .5em;
 }
@@ -40,6 +44,12 @@
 
 li {
   list-style: initial;
+}
+
+.button-delete {
+  background: white;
+  border: 1px solid darkgray;
+  border-radius: 15%;
 }
 
 
