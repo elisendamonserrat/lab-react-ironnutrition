@@ -60,6 +60,7 @@ class App extends Component {
 
   onAddTodaysFood = ( { food }, quantity) => {
     const initialTodaysFoodList = [...this.state.todaysFood];
+    
     initialTodaysFoodList.push({...food, quantity: quantity});
 
     this.setState({
