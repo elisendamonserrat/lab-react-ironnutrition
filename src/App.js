@@ -63,8 +63,18 @@ class App extends Component {
     
     initialTodaysFoodList.push({...food, quantity: quantity});
 
+    const groupedFood = initialTodaysFoodList.reduce((acc, curr) => {
+      const foodExists = acc.find(item => item.name === curr.name);
+      if (foodExists) {
+        foodExists.calories += curr.calories;
+        foodExists.quantity += curr.quantity;
+        return acc;
+      }
+      return [...acc, curr]
+    }, []);
+
     this.setState({
-      todaysFood: initialTodaysFoodList,
+      todaysFood: groupedFood,
     })
 
   }
