@@ -16,7 +16,6 @@ class App extends Component {
       addFoodForm: false,
       query: '',
       todaysFood: [],
-      calories: 0.
     };
   }
 
@@ -60,34 +59,24 @@ class App extends Component {
     })
   }
 
-  onAddTodaysFood = ( { food }, quantity) => {
-    const initialTodaysFoodList = [...this.state.todaysFood];
+  onAddTodaysFood = (foodObj) => {
+    const todaysFoodCopy = [...this.state.todaysFood];
 
-    initialTodaysFoodList.push({...food, quantity});
+    const index = todaysFoodCopy.findIndex(food => food.name === foodObj.name);
+    console.log(foodObj)
 
-    const groupedFood = initialTodaysFoodList.reduce((acc, curr) => {
-
-      const foodExists = acc.find(item => item.name === curr.name);
-
-      if (foodExists) {
-        foodExists.quantity = parseInt(foodExists.quantity) + parseInt(quantity);
-        foodExists.calories = parseInt(foodExists.quantity) * parseInt(foodExists.calories);
-        return acc;
-      }
-      return [...acc, curr]
-    }, []);
+    if (index === -1) {
+      todaysFoodCopy.push(foodObj);
+    } else if (index > -1) {
+      todaysFoodCopy[index].caloriesTotal += foodObj.caloriesTotal;
+      todaysFoodCopy[index].quantity += foodObj.quantity;
+    }
 
     this.setState({
-      todaysFood: groupedFood,
-      calories: this.sumTotalCalories(groupedFood)
+      todaysFood: todaysFoodCopy,
     })
   }
 
-  sumTotalCalories = (foodList) => {
-    return foodList.reduce((acc, currentValue) => {
-      return acc + currentValue.calories
-    }, 0);
-  }
 
   onDeleteItem = (item) => {
     const initialTodaysFoodList = [...this.state.todaysFood]
@@ -101,6 +90,10 @@ class App extends Component {
   
   render() {
     const filteredFoodArray = this.filterFood(this.state.foodList, this.state.query);
+
+    const sumTotalCalories = this.state.todaysFood.reduce((acc, curr) => {
+      return acc + curr.caloriesTotal
+    }, 0);
 
     return (
       <div className="App text-center">
@@ -145,7 +138,7 @@ class App extends Component {
                     )
                   })}
                 </ul>
-                <p>Total: {this.state.calories} cal</p>
+                <p>Total: {sumTotalCalories} cal</p>
             </div>
         </div>
       </div>

@@ -8,10 +8,10 @@ export class TodaysFoodList extends Component {
     }
 
     render() {
-        const { name, quantity, calories } = this.props.food;
+        const { name, quantity, caloriesTotal } = this.props.food;
         return (
          <li className="margin-bottom-small">
-            {quantity} {name} - {calories} cal
+            {quantity} {name} - {caloriesTotal} cal
 
             <button className="button-delete margin-left" onClick={this.handleOnClick}>
             <i className="fas fa-trash" style={{color:'red'}}></i>

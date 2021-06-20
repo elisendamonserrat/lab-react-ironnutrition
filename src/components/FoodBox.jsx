@@ -5,22 +5,32 @@ export class FoodBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 1,
+            quantity: 0,
         }
     }
 
     handleInput = (e) => {
-        if(e.target.value == 0) { 
-            return alert('A minimun amount of 1 is required to be added on your list')
-        }
+        const { value } = e.target;
 
-        this.setState({
-            quantity: e.target.value,
-        })
+        if(value > 0) {
+            this.setState({
+                quantity: Number(value),
+            })
+        }
     }
 
     handleClick = () => {
-        this.props.addTodaysFood(this.props, this.state.quantity);
+        const { name, calories } = this.props.food;
+        const { quantity } = this.state;
+
+        if (quantity !== 0) {
+            this.props.addTodaysFood({
+                name,
+                caloriesTotal: calories * quantity,
+                quantity,
+                calories,
+            });
+        }
     }
 
     render() {
